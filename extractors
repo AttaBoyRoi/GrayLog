@@ -1,0 +1,507 @@
+{
+  "extractors": [
+    {
+      "title": "pfSense - Destination Port",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 15,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_destport",
+      "extractor_config": {
+        "index": 22,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Source Port",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 23,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_sourceport",
+      "extractor_config": {
+        "index": 21,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Protocol",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 16,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_proto",
+      "extractor_config": {
+        "index": 17,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Source IP",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 17,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_sourceip",
+      "extractor_config": {
+        "index": 19,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Destination IP",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 18,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_destip",
+      "extractor_config": {
+        "index": 20,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Direction",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 19,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_direction",
+      "extractor_config": {
+        "index": 8,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - filter blocked SRC",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 22,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "filterlog_blocked_SRC",
+      "extractor_config": {
+        "regex_value": "(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+      },
+      "condition_type": "string",
+      "condition_value": "filterlog:"
+    },
+    {
+      "title": "pfSense - Ingress Interface",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 21,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_ingress",
+      "extractor_config": {
+        "index": 5,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "Asus - Source Port ",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 20,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_sourceport",
+      "extractor_config": {
+        "regex_value": "SPT=([1-9]*)"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "Asus - Destination IP",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 14,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_destip",
+      "extractor_config": {
+        "regex_value": "DST=(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "Asus - Destination Port",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 25,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_destport",
+      "extractor_config": {
+        "regex_value": "DPT=([1-9]*)"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "pfSense - Rule Number",
+      "extractor_type": "regex_replace",
+      "converters": [],
+      "order": 24,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_rulenum",
+      "extractor_config": {
+        "regex": "^filterlog: ([1-9]+),.*$",
+        "replacement": "$1",
+        "replace_all": false
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "pfSense - Action",
+      "extractor_type": "split_and_index",
+      "converters": [],
+      "order": 26,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "pfsense_filter_action",
+      "extractor_config": {
+        "index": 7,
+        "split_by": ","
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "Asus - Source IP",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 27,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_sourceip",
+      "extractor_config": {
+        "regex_value": "SRC=(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "pfSense - Source Replace",
+      "extractor_type": "regex_replace",
+      "converters": [],
+      "order": 29,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "source",
+      "extractor_config": {
+        "regex": "filterlog.*",
+        "replacement": "pfSense",
+        "replace_all": false
+      },
+      "condition_type": "regex",
+      "condition_value": "^filterlog:.*,(in|out),4,.*"
+    },
+    {
+      "title": "Asus - Protocol",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 28,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_proto",
+      "extractor_config": {
+        "regex_value": "PROTO=(...)"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "Asus - Source Replace ",
+      "extractor_type": "regex_replace",
+      "converters": [],
+      "order": 30,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "source",
+      "extractor_config": {
+        "replacement": "Asus_Router",
+        "regex": "kernel.*"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "Asus - Action",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 31,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "asus_filter_action",
+      "extractor_config": {
+        "regex_value": "(DROP|ACCEPT)"
+      },
+      "condition_type": "regex",
+      "condition_value": "^kernel:.(ACCEPT|DROP).*IN=.*OUT="
+    },
+    {
+      "title": "Asus - Timestamp",
+      "extractor_type": "regex",
+      "converters": [
+        {
+          "type": "flexdate",
+          "config": {
+            "time_zone": "Etc/Zulu"
+          }
+        }
+      ],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "full_message",
+      "target_field": "splunk_timestamp",
+      "extractor_config": {
+        "regex_value": "^.*(\\w{3} \\d{2} \\d{2}:\\d{2}:\\d{2}).*"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Suricata - Source Replace",
+      "extractor_type": "regex_replace",
+      "converters": [],
+      "order": 1,
+      "cursor_strategy": "copy",
+      "source_field": "full_message",
+      "target_field": "source",
+      "extractor_config": {
+        "replacement": "Suricata",
+        "regex": ".*suricata.*"
+      },
+      "condition_type": "regex",
+      "condition_value": "suricata\\[.*\\]:"
+    },
+    {
+      "title": "Suricata - Alert Message",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 2,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_message",
+      "extractor_config": {
+        "regex_value": "^suricata\\[.*\\]:.\\[.*\\] (.*)\\[Classification:"
+      },
+      "condition_type": "regex",
+      "condition_value": "^suricata\\[.*\\]: \\["
+    },
+    {
+      "title": "Suricata - Classification",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 3,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_classification",
+      "extractor_config": {
+        "regex_value": "^suricata\\[.*\\]:.\\[.*\\] .*\\[Classification:(.*)\\].\\[Priority"
+      },
+      "condition_type": "regex",
+      "condition_value": "^suricata\\[.*\\]:.\\[.*\\] .* \\[Classification:"
+    },
+    {
+      "title": "Suricata - Priority",
+      "extractor_type": "regex",
+      "converters": [
+        {
+          "type": "numeric",
+          "config": {}
+        }
+      ],
+      "order": 4,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_priority",
+      "extractor_config": {
+        "regex_value": "\\[Priority:.(.*)\\]"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Suricata - Proto",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 5,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_proto",
+      "extractor_config": {
+        "regex_value": "\\{(.*)\\}"
+      },
+      "condition_type": "regex",
+      "condition_value": "^suricata\\[.*\\]:.\\[.*\\].* \\[Classification:"
+    },
+    {
+      "title": "Suricata -sourceip",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 6,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_sourceip",
+      "extractor_config": {
+        "regex_value": "\\}.(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}):.*.\\-\\>"
+      },
+      "condition_type": "regex",
+      "condition_value": "^suricata\\[.*\\]:.\\[.*\\].* \\[Classification:"
+    },
+    {
+      "title": "Threat Source",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 7,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "threat_source",
+      "extractor_config": {
+        "regex_value": "Failed password for invalid user.*from.(.*).port"
+      },
+      "condition_type": "regex",
+      "condition_value": "sshd.*Failed password"
+    },
+    {
+      "title": "HTTP Status Code",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 8,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "http_status_code",
+      "extractor_config": {
+        "regex_value": "HTTP\\/1\\.1.\\\"([0-9]{3})\\\"\\s"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "TTY Commands",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 9,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "tty_command",
+      "extractor_config": {
+        "regex_value": "COMMAND=(.*)"
+      },
+      "condition_type": "regex",
+      "condition_value": "TTY"
+    },
+    {
+      "title": "Threat Source",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 10,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "threat_source",
+      "extractor_config": {
+        "regex_value": "rhost=(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b)"
+      },
+      "condition_type": "regex",
+      "condition_value": ".*sshd.*authentication failure;.*"
+    },
+    {
+      "title": "Web Spiders",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 11,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "web_spider",
+      "extractor_config": {
+        "regex_value": "compatible\\;\\s([a-zA-Z0-9+.-]+)"
+      },
+      "condition_type": "regex",
+      "condition_value": "HTTP/1.1"
+    },
+    {
+      "title": "HTTP URI",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 12,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "http_uri",
+      "extractor_config": {
+        "regex_value": "GET\\s/([a-zA-Z0-9+./-]+)"
+      },
+      "condition_type": "regex",
+      "condition_value": "HTTP/1.1"
+    },
+    {
+      "title": "HTTP Domain",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 13,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "http_domain",
+      "extractor_config": {
+        "regex_value": "http.?://([a-z0-9+.-]+)"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "IoC Threat result",
+      "extractor_type": "lookup_table",
+      "converters": [],
+      "order": 32,
+      "cursor_strategy": "copy",
+      "source_field": "pfsense_filter_destip",
+      "target_field": "ioc_threat_result",
+      "extractor_config": {
+        "lookup_table_name": "ioc-threats"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Suricata - Destination IP",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "suricata_destip",
+      "extractor_config": {
+        "regex_value": "\\}.\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:.*.\\-\\>.(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+      },
+      "condition_type": "regex",
+      "condition_value": "^suricata\\[.*\\]:.\\[.*\\] .* \\[Classification:"
+    }
+  ],
+  "version": "3.0.2"
+}
