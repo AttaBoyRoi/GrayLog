@@ -1,0 +1,1 @@
+ACTION: ${pfsense_filter_action} | PROTO: ${pfsense_filter_proto}| FROM: ${ pfsense_filter_sourceip}:${pfsense_filter_sourceport} | TO: ${pfsense_filter_destip}:${pfsense_filter_destport}
